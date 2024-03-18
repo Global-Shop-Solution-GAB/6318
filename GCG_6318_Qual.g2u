@@ -1,0 +1,1596 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.Form..Create(DashForm)
+Gui.Form..Caption("Create Component NCMR from Inventory with Custom Rule")
+Gui.Form..Size(1399,713)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..AlwaysOnTop(False)
+Gui.Form..FontName("Tahoma")
+Gui.Form..FontSize(8.25)
+Gui.Form..ControlBox(True)
+Gui.Form..MaxButton(True)
+Gui.Form..MinButton(True)
+Gui.Form..MousePointer(0)
+Gui.Form..Moveable(True)
+Gui.Form..Sizeable(True)
+Gui.Form..ShowInTaskBar(True)
+Gui.Form..TitleBar(True)
+Gui.Form..Event(UnLoad,Form_UnLoad)
+Gui.Form..BarHelpButton(True,"Scrap Components","Create NCMR from Inventory and based on custom rule with email/auto dispose","",22.9.29,"9/29/2022 12:00:00 AM","",0,0,False)
+Gui.Form..BarExportButton(True)
+Gui.Form..Event(ExportClick,Form_ExportClick)
+Gui.Form..BarSaveButton(False,True)
+Gui.Form..Event(SaveButtonClick,Form_SaveButtonClick)
+Gui.Form..BarAddButton("ClearWO","Clear WO",V.Enum.Image!Clear_BLACK)
+Gui.Form..BarAddButton("ClearAll","Clear All",V.Enum.Image!Clear_COLOR)
+Gui.Form..BarAddButton("Select_All","Select All",V.Enum.Image!SELECT_ALL_BLACK)
+Gui.Form..BarAddButton("UnSelect_All","Unselect All",V.Enum.Image!SELECT_NONE_BLACK)
+Gui.Form..BarAddButton("Save","Click Save To Create Quality Records from Inventory for selected rows",V.Enum.Image!SAVE_BLACK)
+Gui.Form..Event(UserButtonClicked,Form_UserButtonClicked)
+Gui.Form.txtBadgeEmpNum.Create(TextBox,"",True,100,20,0,12,20,True,0,"Tahoma",8.25,,1)
+Gui.Form.lblBadge.Create(Label,"Badge",True,35,13,0,14,4,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblBadge.BorderStyle(0)
+Gui.Form.lblBadge.DefaultValue("")
+Gui.Form.lblBadge.FontStyle(True,False,False,False,False)
+Gui.Form.cmdLoadEmployee.Create(Button)
+Gui.Form.cmdLoadEmployee.Enabled(True)
+Gui.Form.cmdLoadEmployee.Visible(True)
+Gui.Form.cmdLoadEmployee.Zorder(0)
+Gui.Form.cmdLoadEmployee.Size(92,20)
+Gui.Form.cmdLoadEmployee.Position(113,21)
+Gui.Form.cmdLoadEmployee.Caption("Load Badge")
+Gui.Form.cmdLoadEmployee.FontName("Tahoma")
+Gui.Form.cmdLoadEmployee.FontSize(8.25)
+Gui.Form.cmdLoadEmployee.BackColor(9157775)
+Gui.Form.cmdLoadEmployee.FontStyle(True,False,False,False,False)
+Gui.Form.cmdLoadEmployee.ForeColor(16777215)
+Gui.Form.cmdLoadEmployee.Event(Click,cmdLoadEmployee_Click)
+Gui.Form.cmdLoadEmployee.SvgPicture("icon_go_color")
+Gui.Form.lblWO.Create(Label,"Work Order",True,65,13,0,218,4,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblWO.BorderStyle(0)
+Gui.Form.lblWO.DefaultValue("")
+Gui.Form.lblWO.FontStyle(True,False,False,False,False)
+Gui.Form.txtWO.Create(TextBox,"",True,103,20,0,215,20,True,0,"Tahoma",8.25,,1)
+Gui.Form.txtWO.Event(LostFocus,txtWO_LostFocus)
+Gui.Form.txtWOPart.Create(TextBox,"",True,118,20,0,434,20,True,0,"Tahoma",8.25,,1)
+Gui.Form.txtWODescr.Create(TextBox,"",True,206,20,0,553,20,True,0,"Tahoma",8.25,,1)
+Gui.Form.lblParentPart.Create(Label,"Parent Part",True,65,13,0,434,4,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblParentPart.BorderStyle(0)
+Gui.Form.lblParentPart.DefaultValue("")
+Gui.Form.lblParentPart.FontStyle(True,False,False,False,False)
+Gui.Form.lblWO3.Create(Label,"Description",True,64,13,0,553,4,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblWO3.BorderStyle(0)
+Gui.Form.lblWO3.DefaultValue("")
+Gui.Form.lblWO3.FontStyle(True,False,False,False,False)
+Gui.Form.cmdBrowseWO.Create(Button)
+Gui.Form.cmdBrowseWO.Enabled(True)
+Gui.Form.cmdBrowseWO.Visible(True)
+Gui.Form.cmdBrowseWO.Zorder(0)
+Gui.Form.cmdBrowseWO.Size(29,20)
+Gui.Form.cmdBrowseWO.Position(319,21)
+Gui.Form.cmdBrowseWO.Caption("^")
+Gui.Form.cmdBrowseWO.FontName("Tahoma")
+Gui.Form.cmdBrowseWO.FontSize(8.25)
+Gui.Form.cmdBrowseWO.Event(Click,cmdBrowseWO_Click)
+Gui.Form.cmdLoadWO.Create(Button)
+Gui.Form.cmdLoadWO.Enabled(True)
+Gui.Form.cmdLoadWO.Visible(True)
+Gui.Form.cmdLoadWO.Zorder(0)
+Gui.Form.cmdLoadWO.Size(75,20)
+Gui.Form.cmdLoadWO.Position(349,21)
+Gui.Form.cmdLoadWO.Caption("Load WO")
+Gui.Form.cmdLoadWO.BackColor(9157775)
+Gui.Form.cmdLoadWO.ForeColor(16777215)
+Gui.Form.cmdLoadWO.FontName("Tahoma")
+Gui.Form.cmdLoadWO.FontSize(8.25)
+Gui.Form.cmdLoadWO.FontStyle(True,False,False,False,False)
+Gui.Form.cmdLoadWO.Event(Click,cmdLoadWO_Click)
+Gui.Form.cmdLoadWO.SvgPicture("icon_go_color")
+Gui.Form.gsMat.Create(GsGridControl)
+Gui.Form.gsMat.Enabled(True)
+Gui.Form.gsMat.Visible(True)
+Gui.Form.gsMat.Zorder(0)
+Gui.Form.gsMat.Size(1378,590)
+Gui.Form.gsMat.Position(11,51)
+Gui.Form.gsMat.Anchor(15)
+Gui.Form.gsMat.Event(RowCellClick,gsMat_RowCellClick)
+Gui.Form.gsMat.Event(CellValueChanged,gsMat_CellValueChanged)
+Gui.Form.lblWelcome.Create(Label,"",True,1,13,0,1200,8,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblWelcome.BorderStyle(0)
+Gui.Form.lblWelcome.FontStyle(True,True,False,False,False)
+Gui.Form.lblWelcome.ForeColor(9157775)
+Gui.Form.lblWelcome.Anchor(9)
+Gui.Form.lblProcessing.Create(Label,"Launching scrap...",False,89,13,0,1210,25,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblProcessing.BorderStyle(0)
+Gui.Form.lblProcessing.ForeColor(8036607)
+Gui.Form.lblParentPart2.Create(Label,"Printer",True,39,13,0,760,4,True,0,"Tahoma",8.25,,0,0)
+Gui.Form.lblParentPart2.BorderStyle(0)
+Gui.Form.lblParentPart2.DefaultValue("")
+Gui.Form.lblParentPart2.FontStyle(True,False,False,False,False)
+Gui.Form.txtPrinter.Create(TextBox,"",True,314,20,0,761,20,True,0,"Tahoma",8.25,,1)
+Gui.Form.chkViewTicketOnly.Create(CheckBox)
+Gui.Form.chkViewTicketOnly.Enabled(True)
+Gui.Form.chkViewTicketOnly.Visible(True)
+Gui.Form.chkViewTicketOnly.Zorder(0)
+Gui.Form.chkViewTicketOnly.Size(119,20)
+Gui.Form.chkViewTicketOnly.Position(1080,20)
+Gui.Form.chkViewTicketOnly.Caption("View Ticket Only")
+Gui.Form.chkViewTicketOnly.FontName("Tahoma")
+Gui.Form.chkViewTicketOnly.FontSize(8.25)
+Gui.Form.chkViewTicketOnly.Value(1)
+Gui.Form.chkViewTicketOnly.FontStyle(True,False,False,False,False)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+v.Global.bLoad.Declare
+v.Global.sNumCodeRanges.Declare
+v.Global.sReportLoc.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'BN, July 2021
+'Customer: Mum Industries
+Function.Intrinsic.UI.UsePixels ' Allows you to use Pixels instead of Twips throughout
+f.Intrinsic.Control.Try
+
+	F.Intrinsic.Task.SetEnvironmentVariable("USEDARKTHEME",False)
+	gui.Form..applytheme()
+	'F.Global.Registry.AddValue(v.Caller.User,V.Caller.CompanyCode,"CUSTOMSCRAP",6318,"1000",False,"",False,0,-1,v.Ambient.Date,12:00:00 AM)
+
+	'Populate at Main GUI screen	
+	f.Intrinsic.Control.If(v.Caller.Hook,=,15743)	
+		v.Passed.000016.Set("Scrap Comp.")
+		f.Intrinsic.Control.ExitSub	
+		
+	'Scrip 1 button	
+	f.Intrinsic.Control.ElseIf(v.Caller.Hook,=,15760)
+		f.ODBC.Connection!conx.OpenCompanyConnection
+		f.Intrinsic.Control.CallSub(Get_Range_For_Dropdown)
+		f.Intrinsic.Control.CallSub(Initialize)
+		f.Intrinsic.Control.If(v.Args.bValid,=,False)
+			f.Intrinsic.UI.Msgbox(v.Args.sInvalidLabel,"Initialize Error")
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.EndIf
+		gui.Form..Show
+		
+	'For testing
+	f.Intrinsic.Control.ElseIf(V.Ambient.IsInIDE,=,True,or,V.System.UserDomain,=,"GSS")
+		gui.Form.txtBadgeEmpNum.Text("10002")
+		gui.Form.txtWO.Text("600010-000")
+		f.ODBC.Connection!conx.OpenCompanyConnection
+		f.Intrinsic.Control.CallSub(Get_Range_For_Dropdown)
+		f.Intrinsic.Control.CallSub(Initialize)
+		f.Intrinsic.Control.If(v.Args.bValid,=,False)
+			f.Intrinsic.UI.Msgbox(v.Args.sInvalidLabel,"Initialize Error")
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.EndIf		
+		gui.Form..Show		
+		
+	'Run from menu item: switch = M
+	f.Intrinsic.Control.ElseIf(v.Caller.Switches,=,"M")
+		f.ODBC.Connection!conx.OpenCompanyConnection
+		f.Intrinsic.Control.CallSub(Get_Range_For_Dropdown)
+		f.Intrinsic.Control.CallSub(Initialize)
+		f.Intrinsic.Control.If(v.Args.bValid,=,False)
+			f.Intrinsic.UI.Msgbox(v.Args.sInvalidLabel,"Initialize Error")
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.EndIf		
+		gui.Form..Show		
+	
+
+	f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Main.End
+
+Program.Sub.Catching.Start
+f.Intrinsic.Control.Try
+	v.Local.sMsg.Declare
+	v.Local.sPath.Declare
+	v.Local.sTitle.Declare
+	f.Intrinsic.String.Build("{0}\GCG_6318_Qual.g2u",v.Ambient.ScriptPath,v.Local.sPath)
+	
+	f.Intrinsic.String.Build("Path: {1}{0}Sub: {2}{0}Error: {3}",v.Ambient.NewLine,v.Local.sPath,v.Args.Sub,v.Args.ErrorDesc,v.Local.sMsg)
+	f.Intrinsic.String.Build("GAB Error Number {0}",v.Args.errorno,v.Local.sTitle)
+	f.Intrinsic.UI.Msgbox(v.Local.sMsg,v.Local.sTitle)
+	F.Intrinsic.Control.CallSub("Unload")
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.UI.Msgbox(v.Ambient.ErrorDescription)
+	F.Intrinsic.Control.CallSub("Unload")
+f.Intrinsic.Control.EndTry
+Program.Sub.Catching.End
+
+Program.Sub.Form_UnLoad.Start
+f.Intrinsic.Control.Try
+
+	f.Intrinsic.Control.CallSub(Unload)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.UI.Msgbox(v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Form_UnLoad.End
+
+Program.Sub.Unload.Start
+f.Intrinsic.Control.Try
+
+	f.ODBC.Connection!conx.Close
+	f.Intrinsic.Control.End
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.UI.Msgbox(v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.Unload.End
+
+Program.Sub.Initialize.Start
+f.Intrinsic.Control.Try
+	v.Local.bExist.Declare
+	v.Local.bValid.Declare	
+	v.Local.sInvalidLabel.Declare
+	v.Local.iRptID.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	
+	v.Local.bValid.Set(True)
+	'Check Db table
+	Function.ODBC.Connection!conx.TableExists("GCG_6318_Ticket",v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist.Not)
+		f.ODBC.Connection!conx.Execute("CREATE TABLE GCG_6318_Ticket  ( CCC CHAR(3), UserID CHAR(8), Trmnl CHAR(3), Employee CHAR(5), Name VARCHAR(30), Job CHAR(6), Suffix CHAR(3), Seq CHAR(6), Part CHAR(20), Location CHAR(2), Description VarChar(20), ScrapCode VARCHAR(3), ScrapDescr VarChar(50),Disposed Varchar(3),RemovedFromInv Varchar(3), Qty NUMERIC(14,6), Unit VARCHAR(3), Lot CHAR(15), Bin CHAR(6), Heat CHAR(15), Serial CHAR(30) );")
+	f.Intrinsic.Control.Endif		
+	
+	'Create dictionary
+	f.Data.Dictionary.CreateFromSQL("dictScrapDescription","conx","SELECT Left(Code,2) as Code, Descr from Rejected_Code")
+	f.Data.Dictionary.SetDefaultReturn("dictScrapDescription","")
+
+	f.Intrinsic.StringBuilder.Create("InvalidLabel")
+	F.Intrinsic.String.Concat(V.Caller.BusintDir,"\Custom\GCG_6318_NCMR.rpt",V.Global.sReportLoc)
+	f.Intrinsic.File.Exists(v.Global.sReportLoc,v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist.Not)
+		f.Intrinsic.StringBuilder.Append("InvalidLabel"," Report file GCG_6318_NCMR.rpt is not found in BUSINT\Custom folder.")
+		v.Local.bValid.Set(False)
+	f.Intrinsic.Control.EndIf
+	
+	F.Global.BI.GetIDFromName("GCG_6318_NCMR.rpt",V.Local.iRptID)
+	f.Intrinsic.Control.If(v.Local.iRptID,=,-1)
+		v.Local.bValid.Set(False)
+		f.Intrinsic.StringBuilder.Append("InvalidLabel"," Report for GCG_6318_NCMR.rpt is not setup as a custom report in BI > Administration > Report Maintenance.")
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.StringBuilder.ToString("InvalidLabel",v.Local.sInvalidLabel)
+	f.Intrinsic.StringBuilder.Dispose("InvalidLabel")
+	
+	'PLAY company of MUM
+	f.Intrinsic.Control.If(v.Caller.CompanyCode,=,"MPL",or,v.Caller.CompanyCode,=,"MAD")
+		Function.ODBC.Connection!conx.TableExists("GCG_3144_MVE_TKT_SU",v.Local.bExist)
+		f.Intrinsic.Control.If(v.Local.bExist.Not)
+			f.Intrinsic.UI.Msgbox("Project 3144 in MPL/MAD is not installed to get the default scrap printer. The default printer is not set, but the program works fine without any issue.")
+		f.Intrinsic.Control.Else
+			f.Intrinsic.String.Build("select Top 1 ScrapPrinter from GCG_3144_MVE_TKT_SU where trmnl = '{0}'",v.Caller.Terminal,v.Local.sSQL)
+			f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+			f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF.Not)
+				gui.Form.txtPrinter.Text(v.Local.sRet.Trim)
+				gui.Form.chkViewTicketOnly.Value(0)
+			f.Intrinsic.Control.Else
+				gui.Form.chkViewTicketOnly.Value(1)
+					f.Intrinsic.String.Build("Project 3144 is installed, but no scrap printer is setup for this termnial {0}.",v.Caller.Terminal,v.Local.sRet)
+				f.Intrinsic.UI.Msgbox(v.Local.sRet)
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndIf	
+		
+	'Live company STX of MUM	
+	f.Intrinsic.Control.ElseIf(v.Caller.CompanyCode,=,"STX")
+		Function.ODBC.Connection!conx.TableExists("ATG_MOVE_TCKT_SETUP",v.Local.bExist)
+		f.Intrinsic.Control.If(v.Local.bExist.Not)
+			f.Intrinsic.UI.Msgbox("ATG_MOVE_TCKT_SETUP in STX is not installed to get the default scrap printer. The default printer is not set, but the program works fine without any issue.")
+		f.Intrinsic.Control.Else
+			f.Intrinsic.String.Build("select Top 1 ScrapPrinter from ATG_MOVE_TCKT_SETUP where trmnl = '{0}'",v.Caller.Terminal,v.Local.sSQL)
+			f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+			f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF.Not)
+				gui.Form.txtPrinter.Text(v.Local.sRet.Trim)
+				gui.Form.chkViewTicketOnly.Value(0)
+			f.Intrinsic.Control.Else
+				gui.Form.chkViewTicketOnly.Value(1)
+					f.Intrinsic.String.Build("ATG_MOVE_TCKT_SETUP has no scrap printer setup for this termnial {0}.",v.Caller.Terminal,v.Local.sRet)
+				f.Intrinsic.UI.Msgbox(v.Local.sRet)
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndIf		
+	
+	f.Intrinsic.Control.EndIf
+
+	
+	f.Intrinsic.Variable.AddRV("bValid",v.Local.bValid)
+	f.Intrinsic.Variable.AddRV("sInvalidLabel",v.Local.sInvalidLabel)	
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Initialize.End
+
+Program.Sub.Get_Range_For_Dropdown.Start
+f.Intrinsic.Control.Try
+	v.Local.sRet.Declare
+
+	f.ODBC.Connection!conx.ExecuteAndReturn("SELECT Left(Code,2)  +  ' ~ ' + Descr from Rejected_Code where IsNumeric(LTRIM(RTRIM(CODE))) = 1 and LTRIM(RTRIM(CODE)) <> ''  Order by Left(Code,2)",v.Local.sRet)
+	f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+		f.Intrinsic.String.Replace(v.Local.sRet,"#$#","*!*",v.Global.sNumCodeRanges)
+	f.Intrinsic.Control.EndIf
+	
+	f.Data.DataTable.CreateFromString("NumToAlpha","0~A,1~B,2~C,3~D,4~E,5~F,6~G,7~H,8~I,9~J, ~Z","Num*!*Alpha","String*!*String","~",",",True)
+	f.Data.Dictionary.CreateFromDatatable("dictNumToAlpha","NumToAlpha","Num","Alpha")
+	f.Data.Dictionary.SetDefaultReturn("dictNumToAlpha"," ")
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Get_Range_For_Dropdown.End
+
+Program.Sub.cmdLoadEmployee_Click.Start
+f.Intrinsic.Control.Try
+	v.Local.sHold.Declare
+	v.Local.sEmpl.Declare
+	v.Local.sSQL.Declare
+	v.Local.sName.Declare
+	v.Local.sWO.Declare
+	
+	'Validate employee
+	F.Intrinsic.String.Replace(v.Screen.Form!txtBadgeEmpNum.Text.Trim,"%$","",V.Local.sEmpl)
+	gui.Form.txtBadgeEmpNum.Text(v.Local.sEmpl)	
+	f.Intrinsic.String.Replace(v.Screen.Form!txtWO.Text.Trim,"$%","",v.Local.sWO)
+	gui.Form.txtWO.Text(v.Local.sWO)	
+	f.Intrinsic.String.Build("Select name from Employee_Mstr where employee = '{0}'",v.Local.sEmpl.PSQLFriendly,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.ssql,v.Local.sName)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		f.Intrinsic.UI.Msgbox("Invalid Employee number.","Attention")
+		f.Intrinsic.Control.ExitSub		
+	f.Intrinsic.Control.EndIf		
+	
+	f.Intrinsic.String.Build("Welcome {0}",v.Local.sName,v.Local.sHold)
+	gui.Form.lblWelcome.Caption(v.Local.sHold)
+	
+	f.Intrinsic.Control.CallSub(cmdClear_Click)	
+		
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.cmdLoadEmployee_Click.End
+
+Program.Sub.txtWO_LostFocus.Start
+f.Intrinsic.Control.Try
+	v.Local.sSQL.Declare
+	v.Local.sWO.Declare
+	v.Local.sSuffix.Declare
+	
+	f.Intrinsic.String.Replace(v.Screen.Form!txtWO.Text.Trim,"$%","",v.Local.sWO)
+	f.Intrinsic.Control.If(v.Local.sWO.Length,=,13)
+		f.Intrinsic.String.Build("{0}--{1}",v.Local.sWO.left6,v.Local.sWO.Right6,v.Local.sWO)
+	f.Intrinsic.Control.ElseIf(v.Local.sWO.Length,=,15)	
+		f.Intrinsic.String.Mid(v.Local.sWO,7,3,v.Local.sSuffix)
+		f.Intrinsic.String.Build("{0}-{1}-{2}",v.Local.sWO.left6,v.Local.sSuffix,v.Local.sWO.Right6,v.Local.sWO)
+	f.Intrinsic.Control.EndIf
+	
+	gui.Form.txtWO.Text(v.Local.sWO)
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.txtWO_LostFocus.End
+
+Program.Sub.cmdBrowseWO_Click.Start
+f.Intrinsic.Control.Try
+	v.Local.sRet.Declare
+	v.Local.sWO.Declare
+	v.Local.sName.Declare
+	v.Local.sEmpl.Declare
+	v.Local.sSQL.Declare
+	
+	'Validate employee
+	v.Local.sEmpl.Set(v.Screen.Form!txtBadgeEmpNum.Text.Trim)
+	f.Intrinsic.String.Build("Select name from Employee_Mstr where employee = '{0}'",v.Local.sEmpl.PSQLFriendly,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.ssql,v.Local.sName)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		f.Intrinsic.UI.Msgbox("Invalid Employee number.","Attention")
+		f.Intrinsic.Control.ExitSub		
+	f.Intrinsic.Control.EndIf		
+	
+	f.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+	f.Intrinsic.UI.Browser("Select Job Sequence","conx","Select h.Job + '-' + h.Suffix as WO,h.Part, h.Description from v_Job_header h where h.Date_closed = '1900-01-01'  order by Job,Suffix","WO*!*Part*!*Description","200*!*300*!*250",v.Local.sRet)
+	f.Intrinsic.Control.If(v.Local.sRet.IsCancel,=,False)
+		f.Intrinsic.Control.CallSub(cmdClear_Click)
+		f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+		f.Intrinsic.Control.BlockEvents
+		gui.Form.txtWO.Text(v.Local.sRet(0))
+		gui.Form.txtWOPart.Text(v.Local.sRet(1).Trim)
+		gui.Form.txtWODescr.Text(v.Local.sRet(2).Trim)		
+		gui.Form.txtWO.SetFocus
+		f.Intrinsic.Control.UnBlockEvents
+		
+		'Load WO
+		f.Intrinsic.String.Split(v.Local.sRet(0).Trim,"-",v.Local.sWO)
+		f.Intrinsic.Control.If(v.Local.sWO.UBound,=,1)
+			f.Intrinsic.Control.CallSub(Load,"sJob",v.Local.sWO(0).Trim,"sSuffix",v.Local.sWO(1).Trim)
+		f.Intrinsic.Control.EndIf
+		
+	f.Intrinsic.Control.EndIf	
+	
+F.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdBrowseWO_Click.End
+
+Program.Sub.Form_UserButtonClicked.Start
+F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+
+	'V.ARGS.BUTTON: ButtonName of the button clicked	
+	F.Intrinsic.Control.SelectCase(V.Args.Button)
+		
+		F.Intrinsic.Control.Case("ClearWO")
+			
+			f.Intrinsic.Control.CallSub(cmdClear_Click)	
+			
+		F.Intrinsic.Control.Case("ClearAll")
+			f.Intrinsic.Control.CallSub(cmdClearAll_Click)
+			
+		F.Intrinsic.Control.Case("Save")
+			F.Intrinsic.Control.If(v.DataTable.WO.Exists,=,False)
+				f.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf	
+			f.Intrinsic.Control.CallSub(Form_SaveButtonClick)
+			
+		F.Intrinsic.Control.Case("Select_All")
+			F.Intrinsic.Control.If(v.DataTable.WO.Exists,=,False)
+				f.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf		
+			f.Data.DataTable.SetValue("WO",-1,"SelectRow",True)
+			f.Data.DataTable.AcceptChanges("WO")
+		
+		F.Intrinsic.Control.Case("UnSelect_All")
+			F.Intrinsic.Control.If(v.DataTable.WO.Exists,=,False)
+				f.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf		
+			f.Data.DataTable.SetValue("WO",-1,"SelectRow",False)
+			f.Data.DataTable.AcceptChanges("WO")
+			
+	F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(Catching,"Sub",V.Ambient.CurrentSubroutine,"ErrorNo",V.Ambient.ErrorNumber,"ErrorDesc",V.Ambient.ErrorDescription) 
+F.Intrinsic.Control.EndTry
+Program.Sub.Form_UserButtonClicked.End
+
+Program.Sub.cmdClear_Click.Start
+f.Intrinsic.Control.Try
+	
+	f.Intrinsic.Control.BlockEvents
+	gui.Form.txtWO.Text("")
+	gui.Form.txtWOPart.Text("")
+	gui.Form.txtWODescr.Text("")	
+	gui.Form.txtWO.SetFocus
+	f.Intrinsic.Control.UnBlockEvents
+	
+	f.Intrinsic.Control.If(v.Global.bLoad)
+		gui.Form.gsMat.ClearRows("gvMain")
+	f.Intrinsic.Control.EndIf		
+	
+F.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdClear_Click.End
+
+Program.Sub.cmdClearAll_Click.Start
+f.Intrinsic.Control.Try
+	
+	f.Intrinsic.Control.BlockEvents
+	f.Intrinsic.Control.CallSub(cmdClear_Click)
+	
+	f.Intrinsic.Control.BlockEvents
+	gui.Form.lblWelcome.Caption("")
+	gui.Form.txtBadgeEmpNum.Text("")
+	gui.Form.txtBadgeEmpNum.SetFocus
+	f.Intrinsic.Control.UnBlockEvents
+	
+F.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdClearAll_Click.End
+
+Program.Sub.Form_SaveButtonClick.Start
+f.Intrinsic.Control.Try
+	v.Local.iCnt.Declare
+	v.Local.sRow.Declare
+	v.Local.sSingleRow.Declare
+	v.Local.sPart.Declare
+	v.Local.sRev.Declare
+	v.Local.sLocn.Declare
+	v.Local.sDate.Declare
+	v.Local.sReference.Declare
+	v.Local.sQty.Declare
+	v.Local.sCost.Declare
+	v.Local.sGL.Declare
+	v.Local.sJob.Declare
+	v.Local.sSuffix.Declare
+	v.Local.sSeq.Declare
+	v.Local.sScrapCode.Declare
+	v.Local.sLot.Declare
+	v.Local.sBin.Declare
+	v.Local.sHeat.Declare
+	v.Local.sSerial.Declare
+	v.Local.sLine.Declare	
+	v.Local.sText.Declare
+	v.Local.sDoNotRemoveFromInventory.Declare
+	v.Local.sCustomer.Declare
+	v.Local.sPONumber.Declare
+	v.Local.sPOLine.Declare
+	v.Local.sFile.Declare
+	v.Local.sErrorCount.Declare
+	v.Local.sFileName.Declare
+	v.Local.bValid.Declare
+	v.Local.sResult.Declare
+	v.Local.fQty.Declare
+	v.Local.fCost.Declare
+	v.Local.sSQL.Declare
+	v.Local.fQtyBinOnhand.Declare
+	v.Local.sDoneFile.Declare
+	v.Local.bEx.Declare
+	v.Local.sNCMR.Declare
+	v.Local.sErrorFile.Declare
+	v.Local.sMsg.Declare
+	v.Local.sCallwapperError.Declare
+	v.Local.sPartTrim.Declare
+	v.Local.iLength.Declare
+	v.Local.sEmpl.Declare
+	v.Local.sName.Declare
+	v.Local.iDisposed.Declare
+	v.Local.sUnit.Declare
+	v.Local.iRptID.Declare
+	V.Local.sParams.Declare
+	V.Local.sValues.Declare
+	V.Local.sScrapPrinter.Declare
+	v.Local.sPrinter.Declare
+	v.Local.iMode.Declare
+	v.Local.sPartDescr.Declare
+	v.Local.sScrapDescr.Declare
+	v.Local.sDisposed.Declare
+	v.Local.sRemovedFromInv.Declare
+	v.Local.sGroupEmails.Declare
+	v.Local.iEmail.Declare
+	V.Local.sBody.Declare
+	V.Local.iUser.Declare
+	V.Local.iL.Declare
+	V.Local.sRet.Declare
+	V.Local.sSubject.Declare
+	V.Local.sSender.Declare
+	V.Local.sRecipients.Declare
+	V.Local.sTemp.Declare	
+	v.Local.bNum.Declare
+	
+	'Validate employee
+	F.Intrinsic.String.Replace(v.Screen.Form!txtBadgeEmpNum.Text.Trim,"%$","",V.Local.sEmpl)
+	gui.Form.txtBadgeEmpNum.Text(v.Local.sEmpl)	
+	f.Intrinsic.String.Build("Select name from Employee_Mstr where employee = '{0}'",v.Local.sEmpl.PSQLFriendly,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.ssql,v.Local.sName)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		f.Intrinsic.UI.Msgbox("Invalid Employee number.","Employee")
+		f.Intrinsic.Control.ExitSub		
+	f.Intrinsic.Control.EndIf	
+	
+	'Checking Printer	
+	f.Intrinsic.Control.if(v.Screen.Form!chkViewTicketOnly.Value,=,1)
+		v.Local.sPrinter.Set("")
+		v.Local.iMode.Set(0)
+	f.Intrinsic.Control.Else
+		f.Intrinsic.Control.If(v.Screen.Form!txtPrinter.Text.Trim,=,"")
+			f.Intrinsic.UI.Msgbox("Printer value is empty","Printer")
+			f.Intrinsic.Control.ExitSub		
+		f.Intrinsic.Control.EndIf
+		v.Local.sPrinter.Set(v.Screen.Form!txtPrinter.Text)	
+		v.Local.iMode.Set(3)
+	f.Intrinsic.Control.EndIf
+
+	'Recipients
+	F.Global.Security.GetGroupEmails("EM6318",V.Local.sGroupEmails)
+	F.Intrinsic.Control.If(V.Local.sGroupEmails,=,"")
+		F.Intrinsic.UI.Msgbox("No emails in group EM6318","Group Emails")
+		f.Intrinsic.Control.ExitSub	
+	F.Intrinsic.Control.EndIf		
+	f.Intrinsic.String.Replace(v.Local.sGroupEmails,"*!*","*!*@!@",v.Local.sRecipients)
+	f.Intrinsic.String.Build("{0}*!*",v.Local.sRecipients,v.Local.sRecipients)
+	f.Intrinsic.String.Split(v.Local.sGroupEmails,"*!*",v.Local.sGroupEmails)	
+	
+	'Sender
+	f.Global.Security.getuserID(v.Caller.User,v.Caller.CompanyCode,v.Local.iUser)	
+	F.Global.Security.GetUserEmail(V.Caller.user,V.Local.sSender)
+	f.Intrinsic.Control.If(v.Local.sSender.Trim,=,"")
+		F.Intrinsic.UI.Msgbox("No Sender Email","Sender Email")
+		f.Intrinsic.Control.ExitSub	
+	f.Intrinsic.Control.EndIf
+	F.Global.Security.GetFullName(V.Caller.User,V.Local.sTemp)
+	F.Intrinsic.String.Concat(V.Local.sSender,"*!*",V.Local.sTemp,V.Local.sSender)	
+	
+
+	gui.Form..Enabled(False)
+
+	f.Data.Datatable.AcceptChanges("WO")
+	f.Intrinsic.Control.If(v.DataView.WO!vSelected.Exists)
+		f.Data.DataView.Close("WO","vSelected")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.Create("WO","vSelected",22,"SelectRow = 1","")
+	f.Intrinsic.Control.If(v.DataView.WO!vSelected.RowCount,=,0)
+		f.Intrinsic.UI.Msgbox("Please select a row","No row selected")
+		gui.Form..Enabled(True)
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf	
+
+	'Get list of material/component that has the QtyToScrap > 0 and Actual Code is populated
+
+	f.Data.DataTable.SetValue("WO",-1,"Result","")		
+	v.Local.bValid.Set(True)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.DataView.WO!vSelected.RowCount--,1)
+				
+		f.Intrinsic.StringBuilder.Create("Result")		
+		
+		'Part Rev
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Part!FieldValString," ",20,v.Local.sPart)	
+		v.Local.sPartTrim.Set(v.Local.sPart.Trim)
+		f.Intrinsic.String.Mid(v.Local.sPart,18,3,v.Local.sRev)
+		f.Intrinsic.String.RPad(v.Local.sRev," ",3,v.Local.sRev)		
+		
+		'Location
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Locn!FieldValString," ",2,v.Local.sLocn)	
+		
+		v.Local.sPartDescr.Set(v.DataView.WO!vSelected(v.Local.iCnt).Description!FieldValString)
+		
+		'UM
+		v.Local.sUnit.Set(v.DataView.WO!vSelected(v.Local.iCnt).UM!FieldValString)
+		
+		'Check NCMR for blank record
+		f.Intrinsic.Control.If(v.DataView.WO!vSelected(v.Local.iCnt).NCMR!FieldValTrim,<>,"")
+			f.Intrinsic.StringBuilder.Append("Result",", Clear_NCMR_4_New")
+		f.Intrinsic.Control.EndIf			
+		
+		'Date
+		v.Local.sDate.Set(v.Ambient.Date.FormatYYYYMMDD)
+		'Reference
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Reference!FieldValString," ",15,v.Local.sReference)
+		f.Intrinsic.Control.If(v.Local.sReference.Trim,=,"")
+			f.Intrinsic.StringBuilder.Append("Result",", Missing Reference")
+		f.Intrinsic.Control.EndIf
+		'Quantity
+		v.Local.fQty.Set(v.DataView.WO!vSelected(v.Local.iCnt).QtyToScrap!FieldValString)
+		f.Intrinsic.String.Format(v.Local.fQty,"000000000.000000",v.Local.sQty)		
+		f.Intrinsic.Control.If(v.Local.fQty,<=,0)
+			f.Intrinsic.StringBuilder.Append("Result",", Invalid Qty")
+		f.Intrinsic.Control.EndIf
+		'Cost
+		f.Intrinsic.String.Format(v.DataView.WO!vSelected(v.Local.iCnt).Cost!FieldValString,"000000000.000000",v.Local.sCost)
+		v.Local.fCost.Set(v.DataView.WO!vSelected(v.Local.iCnt).Cost!FieldValString)
+		'f.Intrinsic.Control.If(v.Local.fCost,<=,0)
+			'f.Intrinsic.StringBuilder.Append("Result",", Invalid Cost")
+		'f.Intrinsic.Control.EndIf
+		'GL Account
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).GL!FieldValString," ",15,v.Local.sGL)
+		f.Intrinsic.Control.If(v.Local.sGL.Trim,=,"")
+			f.Intrinsic.StringBuilder.Append("Result",", Missing GL")
+		f.Intrinsic.Control.EndIf
+		'Job
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Job!FieldValString," ",6,v.Local.sJob)
+		'Suffix
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Suffix!FieldValString," ",3,v.Local.sSuffix)
+		'Seq
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Seq!FieldValString," ",6,v.Local.sSeq)
+		'Scrap Code
+		f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).ActualCode!FieldValString," ",2,v.Local.sScrapCode)
+		f.Intrinsic.Control.If(v.Local.sScrapCode.Trim,=,"")
+			f.Intrinsic.StringBuilder.Append("Result",", Missing ActualCode")
+		f.Intrinsic.Control.EndIf	
+		
+		F.Intrinsic.Control.If(V.DataView.WO!vSelected(V.Local.iCnt).IsLotBin!FieldValString,=,"Yes")	
+			'Lot
+			f.Intrinsic.String.Trim(v.DataView.WO!vSelected(v.Local.iCnt).Lot!FieldValString,v.Local.sLot)
+			'Bin
+			f.Intrinsic.String.Trim(v.DataView.WO!vSelected(v.Local.iCnt).Bin!FieldValString,v.Local.sBin)
+			'Heat
+			f.Intrinsic.String.Trim(v.DataView.WO!vSelected(v.Local.iCnt).Heat!FieldValString,v.Local.sHeat)
+			'Serial
+			f.Intrinsic.String.Trim(v.DataView.WO!vSelected(v.Local.iCnt).Serial!FieldValString,v.Local.sSerial)
+			
+			f.Intrinsic.String.Build("Select Top 1 Quantity from Item_master where rtrim(Part) = '{0}' and rtrim(Location) = '{1}' and rtrim(Lot) = '{2}' and rtrim(Bin) = '{3}' and rtrim(Heat) = '{4}' and rtrim(Serial_Number) = '{5}'",v.Local.sPartTrim.PSQLFriendly,v.Local.sLocn.Trim,v.Local.sLot.PSQLFriendly,v.Local.sBin.PSQLFriendly,v.Local.sHeat.PSQLFriendly,v.Local.sSerial.PSQLFriendly,v.Local.sSQL)
+			f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+			f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+				f.Intrinsic.StringBuilder.Append("Result",", LotBin Not Found")
+			f.Intrinsic.Control.Else
+				'Check enough qty
+				v.Local.fQtyBinOnhand.Set(v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.fQtyBinOnhand,<,v.Local.fQty)
+					f.Intrinsic.StringBuilder.Append("Result",", Not Enough Qty")
+				f.Intrinsic.Control.EndIf
+			f.Intrinsic.Control.EndIf	
+			'Format lotbin			
+			'Lot
+			f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Lot!FieldValString," ",15,v.Local.sLot)
+			'Bin
+			f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Bin!FieldValString," ",6,v.Local.sBin)
+			'Heat
+			f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Heat!FieldValString," ",15,v.Local.sHeat)
+			'Serial
+			f.Intrinsic.String.RPad(v.DataView.WO!vSelected(v.Local.iCnt).Serial!FieldValString," ",30,v.Local.sSerial)			
+			
+		f.Intrinsic.Control.Else
+			
+			'Lot
+			f.Intrinsic.String.RPad(" "," ",15,v.Local.sLot)
+			'Bin
+			f.Intrinsic.String.RPad(" "," ",6,v.Local.sBin)
+			'Heat
+			f.Intrinsic.String.RPad(" "," ",15,v.Local.sHeat)
+			'Serial
+			f.Intrinsic.String.RPad(" "," ",30,v.Local.sSerial)			
+			
+		F.Intrinsic.Control.EndIf	
+						
+		v.Local.sDoNotRemoveFromInventory.Set("N")
+		f.Intrinsic.String.RPad(""," ",15,v.Local.sCustomer)
+		f.Intrinsic.String.RPad(""," ",7,v.Local.sPONumber)
+		f.Intrinsic.String.RPad(""," ",3,v.Local.sPOLine)
+		
+		f.Intrinsic.String.Build("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20}",v.Local.sPart,v.Local.sRev,v.Local.sLocn,v.Local.sDate,v.Local.sReference,v.Local.sQty,v.Local.sCost,v.Local.sGL,"N",v.Local.sJob,v.Local.sSuffix,v.Local.sSeq,v.Local.sScrapCode,v.Local.sLot,v.Local.sBin,v.Local.sHeat,v.Local.sSerial,v.Local.sDoNotRemoveFromInventory,v.Local.sCustomer,v.Local.sPONumber,v.Local.sPOLine,v.Local.sLine)
+		f.Intrinsic.Control.If(v.Local.sDoNotRemoveFromInventory,=,"N")
+			v.Local.sRemovedFromInv.Set("Yes")
+		f.Intrinsic.Control.Else	
+			v.Local.sRemovedFromInv.Set("No")
+		f.Intrinsic.Control.EndIf
+	
+		f.Intrinsic.StringBuilder.ToString("Result",v.Local.sResult)
+		f.Intrinsic.StringBuilder.Dispose("Result")
+		
+		f.Intrinsic.Control.If(v.Local.sResult.Trim,<>,"")
+			'There is something invalid
+			f.Intrinsic.Control.If(v.Local.sResult.Length,>,2)
+				f.Intrinsic.Math.Sub(v.Local.sResult.Length,2,v.Local.iLength)
+				F.Intrinsic.String.Mid(v.Local.sResult,3,v.Local.iLength,v.Local.sResult)
+			f.Intrinsic.Control.EndIf
+			f.Data.DataView.SetValue("WO","vSelected",v.Local.iCnt,"Result",v.Local.sResult)
+		f.Intrinsic.Control.Else
+			
+			'Create NCMR
+			'Prepare file
+			f.Intrinsic.String.Build("{0}\NC{1}{2}.txt",v.Caller.FilesDir,v.Caller.CompanyCode,v.Caller.Terminal,V.Local.sFile)
+			f.Intrinsic.File.String2File(v.Local.sFile,v.Local.sLine)			
+			f.Intrinsic.String.Build("NC{0}{1}.txt",v.Caller.CompanyCode,v.Caller.Terminal,V.Local.sFileName)
+			'Call callwrapper			
+			F.Global.Callwrapper.New("NCMR","Inventory.CreateNcmrFromInventory")
+			F.Global.Callwrapper.SetProperty("NCMR","CompanyCode",v.Caller.CompanyCode)
+			F.Global.Callwrapper.SetProperty("NCMR","FileName",v.Local.sFileName)
+			F.Global.CallWrapper.Run("NCMR")
+			'Check callwrapper result
+			F.Global.Callwrapper.GetProperty("NCMR","ErrorCount",V.Local.sErrorCount)
+			f.Intrinsic.Control.If(v.Local.sErrorCount,=,0)
+				'Get NCMR number
+				f.Intrinsic.String.Build("{0}.DONE",v.Local.sFile,v.Local.sDoneFile)
+				f.Intrinsic.File.Exists(v.Local.sDoneFile,v.Local.bEx)
+				f.Intrinsic.Control.If(v.Local.bEx)
+					f.Intrinsic.File.File2String(v.Local.sDoneFile,v.Local.sNCMR)
+					v.Local.sNCMR.Set(v.Local.sNCMR.left7)
+					'show NCMR number	
+					f.Data.DataView.SetValue("WO","vSelected",v.Local.iCnt,"NCMR",v.Local.sNCMR)
+				f.Intrinsic.Control.EndIf
+				F.Intrinsic.String.Build("Part: {0} NCMR: {1} ",v.Local.sPart,v.Local.sNCMR,v.Local.sMsg)
+				gui.Form..ShowAlert("NCMRCreation","Successful",v.Local.sMsg,v.Enum.Image!CHECK_COLOR)	
+				
+				'Delete old printing data
+				f.Intrinsic.String.Build("Delete from GCG_6318_Ticket where CCC = '{0}' and UserID = '{1}' and Trmnl = '{2}'",v.Caller.CompanyCode,v.Caller.User,v.Caller.Terminal,v.Local.sSQL)
+				f.ODBC.Connection!conx.Execute(v.Local.sSQL)
+				
+				'Save data to db for printing
+				'Get Auto Disposed
+				f.Intrinsic.String.Build("Select Dispose_Scrap from Rejected_code where rtrim(Code) = '{0}'",v.Local.sScrapCode.Trim,v.Local.ssql)
+				f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+				f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF.Not)
+					f.Intrinsic.Control.If(v.Local.sRet.Trim,=,"Y")
+						v.Local.iDisposed.Set(1)
+						v.Local.sDisposed.Set("Yes")
+					f.Intrinsic.Control.Else
+						v.Local.iDisposed.Set(0)
+						v.Local.sDisposed.Set("No")
+					f.Intrinsic.Control.EndIf
+				f.Intrinsic.Control.Else
+					v.Local.iDisposed.Set(0)
+					v.Local.sDisposed.Set("No")
+				f.Intrinsic.Control.EndIf
+				
+				v.Local.sScrapDescr.Set(v.Local.sScrapCode.Trim)
+				v.Local.sScrapDescr.Set(v.Dictionary.dictScrapDescription![v.Local.sScrapDescr])
+				f.Intrinsic.String.Build("Insert into GCG_6318_Ticket (CCC,UserID,Trmnl,Employee,Name,Job,Suffix,Seq,Part,Location,Description,ScrapCode,ScrapDescr,Disposed,RemovedFromInv,Qty,Unit,Lot,Bin,Heat,Serial) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}','{19}','{20}')",v.Caller.CompanyCode,v.Caller.User,v.Caller.Terminal,v.Local.sEmpl,v.Local.sName.PSQLFriendly,v.Local.sJob,v.Local.sSuffix,v.Local.sSeq,v.Local.sPart.PSQLFriendly,v.Local.sLocn,v.Local.sPartDescr.PSQLFriendly,v.Local.sScrapCode,v.Local.sScrapDescr.PSQLFriendly,v.Local.sDisposed,v.Local.sRemovedFromInv,v.Local.sQty,v.Local.sUnit,v.Local.sLot.PSQLFriendly,v.Local.sBin.PSQLFriendly,v.Local.sHeat.PSQLFriendly,v.Local.sSerial.PSQLFriendly,v.Local.sSQL)
+				f.ODBC.Connection!conx.Execute(v.Local.sSQL)
+				
+				'Email
+				F.Intrinsic.Math.IsNumeric(V.Local.sScrapCode,V.Local.bNum)
+				f.Intrinsic.Control.If(v.Local.bNum)
+					f.Intrinsic.UI.InvokeWaitDialog("Sending emails...")
+					f.Intrinsic.String.Build("NCMR Created WO: {0}-{1} Part: {2} Location: {3}",v.Local.sJob,v.Local.sSuffix,v.Local.sPart.Trim,v.Local.sLocn.Trim,v.Local.sSubject)
+					f.Intrinsic.String.Build("Employee: {1}{0}Name: {2}{0}Job: {3}{0}Suffix: {4}{0}Seq: {5}{0}Part: {6}{0}Location: {7{0}Description: {8}{0}ScrapCode: {9}{0}ScrapDescr: {10}{0}Disposed: {11}{0}RemovedFromInv: {12}{0}Qty: {13{0}Unit: {14}{0}Lot: {15}{0}Bin: {16}{0}Heat: {17}{0}Serial: {18}",v.Local.sEmpl,v.Local.sName.PSQLFriendly,v.Local.sJob,v.Local.sSuffix,v.Local.sSeq,v.Local.sPart.PSQLFriendly,v.Local.sLocn,v.Local.sPartDescr.PSQLFriendly,v.Local.sScrapCode,v.Local.sScrapDescr.PSQLFriendly,v.Local.sDisposed,v.Local.sRemovedFromInv,v.Local.sQty,v.Local.sUnit,v.Local.sLot.PSQLFriendly,v.Local.sBin.PSQLFriendly,v.Local.sHeat.PSQLFriendly,v.Local.sSerial.PSQLFriendly,v.Local.sBody)
+					f.Global.Messaging.queuemessage(v.Caller.CompanyCode,v.Local.iUser,"OCTSRS",v.Local.sSubject,v.Local.sSender,v.Local.sRecipients,v.Local.sBody)	
+					f.Intrinsic.UI.CloseWaitDialog
+				f.Intrinsic.Control.EndIf
+				'Print
+				F.Global.BI.InitializeReport("GCG_6318_NCMR",v.Global.sReportLoc,V.Local.iRptId)
+				F.Intrinsic.String.Split("CCC*!*UserID*!*Trmnl*!*NCMR","*!*",V.Local.sParams)
+				F.Intrinsic.String.Concat(V.Caller.CompanyCode,"*!*",V.Caller.User,"*!*",v.Caller.Terminal,"*!*",v.Local.sNCMR,V.Local.sValues)
+				F.Intrinsic.String.Split(V.Local.sValues,"*!*",V.Local.sValues)
+				F.Global.BI.PrintReport(V.Local.iRptId,v.Local.iMode,v.Local.sParams,v.Local.sValues,v.Local.sPrinter,True)
+				
+			f.Intrinsic.Control.Else
+			
+				'Get Error
+				f.Intrinsic.String.Build("{0}.Error",v.Local.sFile,v.Local.sErrorFile)
+				f.Intrinsic.File.Exists(v.Local.sErrorFile,v.Local.bEx)
+				f.Intrinsic.Control.If(v.Local.bEx)
+					f.Intrinsic.File.File2String(v.Local.sErrorFile,v.Local.sCallwapperError)
+					f.Intrinsic.String.Split(v.Local.sCallwapperError,"==>",v.Local.sCallwapperError)
+					f.Intrinsic.Control.If(v.Local.sCallwapperError.UBound,>,0)
+						v.Local.sCallwapperError.Set(v.Local.sCallwapperError(1))
+					f.Intrinsic.Control.EndIf
+					'show NCMR number	
+					f.Data.DataView.SetValue("WO","vSelected",v.Local.iCnt,"Result",v.Local.sCallwapperError)
+				f.Intrinsic.Control.EndIf	
+				F.Intrinsic.String.Build("Part: {0} {1}",v.Local.sPart,v.Local.sCallwapperError,v.Local.sMsg)
+				gui.Form..ShowAlert("NCMRCreation","Failed",v.Local.sMsg,v.Enum.Image!CHECK_COLOR)
+			f.Intrinsic.Control.EndIf				
+			
+		f.Intrinsic.Control.EndIf		
+		
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	
+	F.Data.DataTable.SetValue("WO",-1,"SelectRow",False)
+	
+	gui.Form..Enabled(True)
+	gui.Form..SetFocus
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Form_SaveButtonClick.End
+
+Program.Sub.cmdLoadWO_Click.Start
+f.Intrinsic.Control.Try
+	v.Local.sRet.Declare
+	v.Local.sWO.Declare
+	v.Local.sName.Declare
+	v.Local.sEmpl.Declare
+	v.Local.sSQL.Declare	
+	 
+	'Validate employee
+	v.Local.sEmpl.Set(v.Screen.Form!txtBadgeEmpNum.Text.Trim)
+	f.Intrinsic.String.Build("Select name from Employee_Mstr where employee = '{0}'",v.Local.sEmpl.PSQLFriendly,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.ssql,v.Local.sName)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		f.Intrinsic.UI.Msgbox("Invalid Employee number.","Attention")
+		f.Intrinsic.Control.ExitSub		
+	f.Intrinsic.Control.EndIf		
+	
+	v.Local.sWO.Set(v.Screen.Form!txtWO.Text.Trim)
+	f.Intrinsic.String.Split(v.Local.sWO,"-",v.Local.sWO)	
+	
+	f.Intrinsic.Control.If(v.Local.sWO.UBound,=,1)
+		f.Intrinsic.String.Build("Select part,description from v_job_header where job = '{0}' and suffix = '{1}'",v.Local.sWO(0).Trim,v.Local.sWO(1).Trim,v.Local.sSQL)
+		f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sret)
+		f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF.Not)
+			f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+			gui.Form.txtWOPart.Text(v.Local.sRet(0))
+			gui.Form.txtWODescr.Text(v.Local.sRet(1))
+			f.Intrinsic.Control.CallSub(Load,"sJob",v.Local.sWO(0).Trim,"sSuffix",v.Local.sWO(1).Trim)
+		f.Intrinsic.Control.Else
+			f.Intrinsic.UI.Msgbox("No Work Order found.","Attention")
+		f.Intrinsic.Control.EndIf		
+	f.Intrinsic.Control.Else
+		f.Intrinsic.UI.Msgbox("Invalid Work Order.","Attention")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf		
+
+F.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdLoadWO_Click.End
+
+Program.Sub.Load.Start
+f.Intrinsic.Control.Try
+	v.Local.sSQL.Declare
+	v.Local.sJob.Declare
+	v.Local.sSuffix.Declare
+	
+	v.Local.sJob.Set(v.Args.sJob)
+	v.Local.sSuffix.Set(v.Args.sSuffix)
+	v.Local.sPartList.Declare
+	v.Local.sRet.Declare
+	v.Local.sParentLocation.Declare
+	v.Local.sDefaultBin.Declare
+	
+	f.Intrinsic.Control.If(v.Global.bLoad)
+		gui.Form.gsMat.ClearRows("gvMain")
+	f.Intrinsic.Control.EndIf		
+		
+	f.Intrinsic.String.Build("Select Job,Suffix,Seq,Part,Locn,Description,UM,'' as  Reference,Convert(0,SQL_Float) as QtyToScrap,Convert(0,SQL_Float) as Cost,'' as NumCode,'' as ActualCode,'' as IsLotBin,'' as Lot,'' as Bin,'' as Heat,'' as Serial,'' as Email,Convert(0,SQL_Float) as BinOnhand,'' as PL,'' as GL,'' As Result,Convert(0,SQL_Bit) as SelectRow from V_Job_Operations where Job = '{0}' and Suffix = '{1}' and LMO = 'M' and Seq not in ('995000','998000') order by Seq",v.Local.sJob,v.Local.sSuffix,v.Local.sSQL)
+	f.Intrinsic.Control.If(v.DataTable.WO.Exists)
+		f.Data.Datatable.Close("WO")
+	f.Intrinsic.Control.EndIf
+	f.Data.Datatable.CreateFromSQL("WO","conx",v.Local.sSQL,True)
+	f.Data.Datatable.AddExpressionColumn("WO","JSS","String","Job + '-' + Suffix + '-' + Seq")
+	f.Data.Datatable.AddExpressionColumn("WO","Amount","Float","IsNull(QtyToScrap,0) * Cost")
+	f.Data.Datatable.AddColumn("WO","NCMR","String","")
+	
+	'Get location of Parent WO
+	f.Intrinsic.String.Build("Select Location from V_Job_header where Job = '{0}' and Suffix = '000'",v.Local.sJob,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		v.Local.sParentLocation.Set("")
+	f.Intrinsic.Control.Else
+		v.Local.sParentLocation.Set(v.Local.sRet)
+	f.Intrinsic.Control.EndIf
+	
+	'Get last labor sequence opcode to populate Bin column
+	f.Intrinsic.String.Build("Select Top 1 Operation,Part from v_Job_Operations where job = '{0}' and suffix = '{1}' and Seq < '990000' and LMO = 'L' order by Seq desc",v.Local.sJob,v.Local.sSuffix,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF.Not)
+		f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+		f.Intrinsic.Control.If(v.Local.sRet(0).Trim,=,"BCKFG",OR,v.Local.sRet(0).Trim,=,"BKFLSH")
+			v.Local.sDefaultBin.Set(v.Local.sRet(1).Trim)
+		f.Intrinsic.Control.EndIf		
+	f.Intrinsic.Control.EndIf	
+	v.Local.sDefaultBin.Set(v.Local.sDefaultBin.left6)	
+	
+	f.Data.DataTable.SetValue("WO",-1,"Locn",v.Local.sParentLocation,"Bin",V.Local.sDefaultBin,"Reference",v.Screen.Form!txtWO.Text.Trim)
+	f.Data.Datatable.AddExpressionColumn("WO","PartLoc","String","Trim(Part) + Trim(Locn)")
+	f.Data.Datatable.AddColumn("WO","RowNum","Float",0)
+	f.Data.Datatable.SetSeries("WO","RowNum",0,1)
+	
+	'Get Cost
+	f.Data.DataView.Create("WO","vParts")
+	f.Data.DataView.ToDataTableDistinct("WO","vParts","PartList","PartLoc",True)
+	f.Data.DataView.Close("WO","vParts")
+	f.Data.DataView.Create("PartList","vPartList")
+	f.Data.DataView.ToString("PartList","vPartList","PartLoc","","!@#$",v.Local.sPartList)
+	f.Data.Datatable.Close("PartList")
+	
+	f.Intrinsic.String.Replace(v.Local.sPartList,"'","''",v.Local.sPartList)
+	f.Intrinsic.String.Replace(v.Local.sPartList,"!@#$","','",v.Local.sPartList)
+	f.Intrinsic.String.Build("Select rtrim(Part) + rtrim(Locn) as PartLoc,Cost from Inventory_Cost where rtrim(Part) + rtrim(Locn) in ('{0}')",v.Local.sPartList,v.Local.sSQL)
+	f.Data.Dictionary.CreateFromSQL("dictCost","conx",v.Local.sSQL)
+	f.Data.Dictionary.SetDefaultReturn("dictCost",0)
+	
+	f.Data.DataTable.FillFromDictionary("WO","dictCost","PartLoc","Cost")
+	f.Data.Dictionary.Close("dictCost")
+	
+	'Get Bin Onhand
+	f.Intrinsic.String.Build("Select rtrim(Part) + rtrim(Location) as PartLoc,Quantity from Item_Master where rtrim(part) + rtrim(Location) in ('{0}') and Bin = '{1}' order by quantity",v.Local.sPartList,v.Local.sDefaultBin,v.Local.sSQL)	
+	f.Data.Dictionary.CreateFromSQL("dictBinOnhand","conx",v.Local.sSQL)
+	f.Data.Dictionary.SetDefaultReturn("dictBinOnhand",0)
+	f.Data.DataTable.FillFromDictionary("WO","dictBinOnhand","PartLoc","BinOnhand")
+	f.Data.Dictionary.Close("dictBinOnhand")
+	
+	'Get Flag_Lot bin
+	f.Intrinsic.String.Build("Select rtrim(Part) + rtrim(Location) as PartLoc,If(IsNull(Flag_Lot,'') = 'Y','Yes','') as Flag_Lot,Product_Line from Inventory_Mstr where rtrim(Part) + rtrim(Location) in ('{0}')",v.Local.sPartList,v.Local.sSQL)
+	f.Data.DataTable.CreateFromSQL("InvMst","conx",v.Local.sSQL,True)
+	f.Data.Dictionary.CreateFromDatatable("dictFlagLot","InvMst","PartLoc","Flag_Lot")
+	f.Data.Dictionary.SetDefaultReturn("dictFlagLot","")
+	f.Data.DataTable.FillFromDictionary("WO","dictFlagLot","PartLoc","IsLotBin")
+	f.Data.Dictionary.Close("dictFlagLot")	
+
+	'Get Product Line
+	f.Data.Dictionary.CreateFromDatatable("dictPL","InvMst","PartLoc","Product_Line")
+	f.Data.Dictionary.SetDefaultReturn("dictPL","")
+	f.Data.DataTable.FillFromDictionary("WO","dictPL","PartLoc","PL")
+	f.Data.Dictionary.Close("dictPL")
+	
+	f.Data.DataTable.Close("InvMst")
+	
+	f.Data.DataTable.AddExpressionColumn("WO","LocPL","String","Trim(Locn) + Trim(PL)")
+	
+	'Get GL account
+	f.Data.Dictionary.CreateFromSQL("dictGL","conx","Select ltrim(rtrim(Location)) + ltrim(rtrim(Product_Line)) as LocPL, Debit_Account from Inv_GL_Accts where Code_Transaction = 'Q50'")
+	f.Data.Dictionary.SetDefaultReturn("dictGL","")
+	f.Data.DataTable.FillFromDictionary("WO","dictGL","LocPL","GL")
+	f.Data.Dictionary.Close("dictGL")
+	f.Data.DataTable.AddExpressionColumn("WO","PreCheck","String","IIF(Trim(IsNull(Reference,'')) <> '' and IsNull(QtyToScrap,0) > 0 and Trim(IsNull(ActualCode,'')) <> '' and Trim(IsNull(NCMR,'')) = '' ,'Valid','')")	
+	'and not (IsNull(IsLotBin,'') = 'Yes' and IsNull(Lot,'') = '' and IsNull(Bin,'') = '' and IsNull(Heat,'') = '' and IsNull(Serial,'') = '' ) ,'Valid','')
+	
+	f.Data.DataTable.SetValue("WO",-1,"QtyToScrap",v.Ambient.DBNull)
+	gui.Form.gsMat.AddGridviewFromDatatable("gvMain","WO")
+	f.Intrinsic.Control.CallSub(Format_Grid)
+	gui.Form.gsMat.MainView("gvMain")
+	v.Global.bLoad.Set(True)
+
+F.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Load.End
+
+Program.Sub.Format_Grid.Start
+f.Intrinsic.Control.Try
+	v.Local.sProperty.Declare
+	v.Local.sValue.Declare
+	v.Local.iCnt.Declare
+	
+	gui.Form.gsMat.SuspendLayout()
+	
+	gui.Form.gsMat.SetGridViewProperty("gvMain","AllowSort",False)
+	gui.Form.gsMat.SetGridViewProperty("gvMain","AllowFilter",False)
+	GUI.Form.gsMat.SetGridViewProperty("gvMain","MultiSelect",False)
+	gui.Form.gsMat.SetGridviewProperty("gvMain","AllowColumnResizing",True)
+	gui.Form.gsMat.SetGridviewProperty("gvMain","OptionsViewColumnAutoWidth",False)	
+	GUI.Form.gsMat.SetGridViewProperty("gvMain","MultiSelect",False)
+	gui.Form.gsMat.SetGridViewProperty("gvMain","OptionsViewShowGroupPanel",False)
+	Gui.Form.gsMat.SetGridViewProperty("gvMain","ColumnPanelRowHeight","50")
+	Gui.Form.gsMat.SetGridViewProperty("gvMain","OptionsSelectionEnableAppearanceFocusedRow",False)	
+	gui.Form.gsMat.SetGridviewProperty("gvMain","Editable",True)
+	
+	v.Local.sProperty.Set("Visible")
+	v.Local.sValue.Set("True")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PartLoc",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","RowNum",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","GL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","LocPL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)
+	
+	v.Local.sProperty.Set("Visible")
+	v.Local.sValue.Set("False")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PartLoc",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","RowNum",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PartLoc",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","GL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","LocPL",v.local.sProperty,v.local.sValue)
+	
+	v.Local.sProperty.Set("AllowShowHide")
+	v.Local.sValue.Set("False")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PartLoc",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","RowNum",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","GL",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","LocPL",v.local.sProperty,v.local.sValue)
+
+	v.Local.sProperty.Set("VisibleIndex")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,v.local.iCnt.++)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,v.local.iCnt.++)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.iCnt.++)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.iCnt.++)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,v.local.iCnt.++)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.iCnt.++)		
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.iCnt.++)	
+	
+	v.Local.sProperty.Set("HeaderFontBold")
+	v.Local.sValue.Set("True")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)	
+	
+	v.Local.sProperty.Set("HeaderWordWrap")
+	v.Local.sValue.Set("wrap")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)	
+	
+	v.Local.sProperty.Set("HeaderVAlignment")
+	v.Local.sValue.Set("Top")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)	
+	
+	v.Local.sProperty.Set("HeaderHAlignment")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,"near")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,"far")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,"near")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,"center")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,"center")
+	
+	v.Local.sProperty.Set("CellHAlignment")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,"near")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,"far")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,"near")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,"far")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,"near")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,"center")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,"center")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,"center")
+	
+	v.Local.sProperty.Set("Width")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,"60")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,"45")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,"60")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,"100")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,"140")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,"45")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,"220")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,"40")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,"120")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,"85")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,"85")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,"85")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,"60")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,"60")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,"50")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,"40")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,"75")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,"45")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,"75")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,"150")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,"85")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,"400")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,"45")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,"60")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,"85")
+	
+	v.Local.sProperty.Set("Caption")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Job",v.local.sProperty,"Job")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Suffix",v.local.sProperty,"Suffix")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Seq",v.local.sProperty,"Seq")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","JSS",v.local.sProperty,"JSS")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Part",v.local.sProperty,"Part")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Locn",v.local.sProperty,"Locn")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Description",v.local.sProperty,"Description")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","UM",v.local.sProperty,"UM")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,"Reference")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,"Qty to Scrap")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,"Cost")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,"Amount")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,"Numeric Code")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","ActualCode",v.local.sProperty,"Actual Code")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Email",v.local.sProperty,"Email")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","IsLotBin",v.local.sProperty,"Is Lot Bin")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,"Lot")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,"Bin")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,"Heat")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,"Serial")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,"Onhand")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,"Result")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","PreCheck",v.local.sProperty,"Pre Check")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,"Select")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,"NCMR")
+	
+	v.Local.sProperty.Set("Maxlength")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,"15")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,"15")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,"15")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,"15")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,"6")	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,"15")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,"30")	
+	
+	v.Local.sProperty.Set("AllowEdit")
+	v.Local.sValue.Set("True")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,False)
+	
+	v.Local.sProperty.Set("ReadOnly")
+	v.Local.sValue.Set("False")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Reference",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NumCode",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Lot",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Bin",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Heat",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Serial",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Result",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","NCMR",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","SelectRow",v.local.sProperty,True)
+	
+	v.Local.sProperty.Set("DisplayCustomNumeric")
+	v.Local.sValue.Set("###,###,###,##0.0000")
+	GUI.Form.gsMat.SetColumnProperty("gvMain","QtyToScrap",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Cost",v.local.sProperty,v.local.sValue)	
+	GUI.Form.gsMat.SetColumnProperty("gvMain","Amount",v.local.sProperty,v.local.sValue)
+	GUI.Form.gsMat.SetColumnProperty("gvMain","BinOnhand",v.local.sProperty,v.local.sValue)
+	
+	GUI.Form.gsMat.ColumnEdit("gvMain","NumCode","Combobox",v.Global.sNumCodeRanges)
+	
+	gui.Form.gsMat.AddStyleFormatCondition("gvMain","PreCheck","PreCheck","Expression","Trim(IsNull([PreCheck],'')) = 'Valid'")
+	gui.Form.gsMat.SetStyleFormatConditionProperty("gvMain","PreCheck","PreCheck","BACKCOLOR","LIGHTBLUE")	
+	
+	gui.Form.gsMat.AddStyleFormatCondition("gvMain","NCMR","NCMRPopulated","Expression","Trim(IsNull([NCMR],'')) <> ''")
+	gui.Form.gsMat.SetStyleFormatConditionProperty("gvMain","NCMR","NCMRPopulated","BACKCOLOR","LIGHTBLUE")		
+	
+	gui.Form.gsMat.AddStyleFormatCondition("gvMain","Result","ResultWithError","Expression","Trim(IsNull([Result],'')) <> ''")
+	gui.Form.gsMat.SetStyleFormatConditionProperty("gvMain","Result","ResultWithError","BACKCOLOR","LightSalmon")
+
+	gui.Form.gsMat.ResumeLayout()	
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.Format_Grid.End
+
+Program.Sub.gsMat_RowCellClick.Start
+f.Intrinsic.Control.Try
+	v.Local.bValue.Declare
+	
+	f.Intrinsic.Control.SelectCase(v.Args.Column)
+		f.Intrinsic.Control.Case("SelectRow")
+			f.Intrinsic.Control.If(v.DataTable.WO(v.Args.RowIndex).SelectRow!FieldValString,=,"")	
+				v.Local.bValue.Set(False)
+			f.Intrinsic.Control.Else
+				v.Local.bValue.Set(v.DataTable.WO(v.Args.RowIndex).SelectRow!FieldValString)
+			f.Intrinsic.Control.EndIf
+			f.Data.Datatable.SetValue("WO",v.Args.RowIndex,"SelectRow",v.Local.bValue.Not)
+			f.Data.DataTable.AcceptChanges("WO")
+			
+	f.Intrinsic.Control.EndSelect
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.gsMat_RowCellClick.End
+
+Program.Sub.Form_ExportClick.Start
+f.Intrinsic.Control.Try
+	v.Local.bExcel.Declare
+	v.Local.sExportPrefix.Declare
+	v.Local.bFileLocked.Declare
+	v.Local.sFileExport.Declare
+	v.Local.sMsg.Declare
+
+	F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+	F.Intrinsic.Control.If(V.Local.bExcel)
+		F.Intrinsic.String.Build("{0}\WOS{1}_{2}.xlsx",V.Caller.LocalGssTempDir,v.Local.sExportPrefix,v.Ambient.Now.FormatMMDDYYYYHhNnSs,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.Form.gsMat.Export(V.Local.sFileExport,"xlsx")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\WOS{1}_{2}.csv",V.Caller.LocalGssTempDir,v.Local.sExportPrefix,v.Ambient.Now.FormatMMDDYYYYHhNnSs,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.Form.gsMat.Export(V.Local.sFileExport,"csv")
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+	F.Intrinsic.Control.EndIf	
+	
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry	
+Program.Sub.Form_ExportClick.End
+
+Program.Sub.gsMat_CellValueChanged.Start
+f.Intrinsic.Control.Try
+	v.Local.sNumCode.Declare
+	v.Local.bIsNumeric.Declare
+	v.Local.sLot.Declare
+	v.Local.sHeat.Declare
+	v.Local.sBin.Declare
+	v.Local.sSerial.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	v.Local.sPartTrim.Declare
+	v.Local.sPart.Declare
+	v.Local.sLocn.Declare
+	v.Local.fQtyBinOnhand.Declare
+	
+	f.Intrinsic.Control.SelectCase(v.Args.Column)
+		f.Intrinsic.Control.Case("NumCode")
+			v.Local.sNumCode.Set(v.Args.Value.Trim)
+			v.Local.sNumCode.Set(v.Local.sNumCode.Left2)
+
+			f.Intrinsic.Math.IsNumeric(v.Local.sNumCode,v.Local.bIsNumeric)
+			f.Intrinsic.Control.If(v.Local.bIsNumeric.Not)
+				f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"NumCode","","Email","","ActualCode","")	
+				f.Data.Datatable.AcceptChanges("WO")
+				f.Intrinsic.UI.Msgbox("Invalid Numeric Code.","Invalid")
+			f.Intrinsic.Control.Else
+				f.Intrinsic.Control.If(v.Local.sNumCode.Length,<>,2)
+					f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"NumCode","","Email","","ActualCode","")	
+					f.Data.Datatable.AcceptChanges("WO")
+					f.Intrinsic.UI.Msgbox("Numeric Code must be 2 digits.","Invalid")
+				f.Intrinsic.Control.Else
+					f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"NumCode",v.Local.sNumCode)
+					f.Data.Datatable.AcceptChanges("WO")
+					f.Intrinsic.Control.CallSub(Map_To_ActualCode,"NumCode",v.Local.sNumCode,"RowNum",v.Args.RowIndex)	
+				f.Intrinsic.Control.EndIf
+			f.Intrinsic.Control.EndIf					
+			
+		f.Intrinsic.Control.CaseAny("QtyToScrap")		
+			v.Local.sNumCode.Set(v.DataTable.WO(v.Args.RowIndex).NumCode!FieldValTrim)
+			f.Intrinsic.Control.If(v.Local.sNumCode,=,"")
+				f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"Email","","ActualCode","")	
+				f.Data.Datatable.AcceptChanges("WO")
+			f.Intrinsic.Control.Else
+				f.Data.Datatable.AcceptChanges("WO")
+				f.Intrinsic.Control.CallSub(Map_To_ActualCode,"NumCode",v.Local.sNumCode,"RowNum",v.Args.RowIndex)
+			f.Intrinsic.Control.EndIf	
+		F.Intrinsic.Control.Case("NCMR")
+			f.Data.Datatable.AcceptChanges("WO")
+			'working
+		f.Intrinsic.Control.CaseAny("Lot","Bin","Heat","Serial")
+			'Part
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Part!FieldValString,v.Local.sPartTrim)
+			v.Local.sPart.Set(v.Datatable.WO(v.args.RowIndex).Part!FieldValString)
+			'Loc
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Locn!FieldValString,v.Local.sLocn)
+			'Lot
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Lot!FieldValString,v.Local.sLot)
+			'Bin
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Bin!FieldValString,v.Local.sBin)
+			'Heat
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Heat!FieldValString,v.Local.sHeat)
+			'Serial
+			f.Intrinsic.String.Trim(v.Datatable.WO(v.args.RowIndex).Serial!FieldValString,v.Local.sSerial)		
+			f.Intrinsic.Control.If(v.DataTable.WO(v.Args.RowIndex).IsLotBin!FieldValTrim,=,"Yes")
+				f.Intrinsic.String.Build("Select Top 1 Quantity from Item_master where rtrim(Part) = '{0}' and rtrim(Location) = '{1}' and rtrim(Lot) = '{2}' and rtrim(Bin) = '{3}' and rtrim(Heat) = '{4}' and rtrim(Serial_Number) = '{5}'",v.Local.sPartTrim.PSQLFriendly,v.Local.sLocn.Trim,v.Local.sLot.PSQLFriendly,v.Local.sBin.PSQLFriendly,v.Local.sHeat.PSQLFriendly,v.Local.sSerial.PSQLFriendly,v.Local.sSQL)
+				f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+				f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+					v.Local.fQtyBinOnhand.Set(0)
+				f.Intrinsic.Control.Else
+					v.Local.fQtyBinOnhand.Set(v.Local.sRet)					
+				f.Intrinsic.Control.EndIf	
+			'This is not a lot bin
+			f.Intrinsic.Control.Else	
+				f.Intrinsic.String.Build("Select Top 1 Qty_Onhand from Inventory_Mstr where rtrim(Part) = '{0}' and rtrim(Location) = '{1}'",v.Local.sPartTrim.PSQLFriendly,v.Local.sLocn.Trim,v.Local.sSQL)
+				f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+				f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+					v.Local.fQtyBinOnhand.Set(0)
+				f.Intrinsic.Control.Else
+					v.Local.fQtyBinOnhand.Set(v.Local.sRet)					
+				f.Intrinsic.Control.EndIf				
+			f.Intrinsic.Control.EndIf
+			f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"BinOnhand",v.Local.fQtyBinOnhand)
+			
+	f.Intrinsic.Control.EndSelect	
+	
+	f.Intrinsic.Control.If(v.DataTable.WO(v.Args.RowIndex).PreCheck!FieldValString,=,"Valid")
+		f.Data.DataTable.SetValue("WO",v.Args.RowIndex,"SelectRow",True)
+		f.Data.Datatable.AcceptChanges("WO")	
+	f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.gsMat_CellValueChanged.End
+
+Program.Sub.Map_To_ActualCode.Start
+f.Intrinsic.Control.Try
+	v.Local.sFirstChar.Declare
+	v.Local.sSecondChar.Declare
+	v.Local.sNumCode.Declare
+	v.Local.sActualCode.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	v.Local.sFilter.Declare
+	v.Local.sApplyAutoScrap.Declare
+	v.Local.sRuleClause.Declare
+	v.Local.bRuleQualified.Declare
+	v.Local.sMappedCode.Declare	
+	v.Local.bRuleExist.Declare
+	
+	'2 char code
+	v.Local.sNumCode.Set(v.Args.NumCode)
+	
+	'Find actual Code	
+	v.Local.sFirstChar.Set(v.Local.sNumCode.Left1)
+	f.Intrinsic.String.Mid(v.Local.sNumCode,2,1,v.Local.sSecondChar)
+	v.Local.sFirstChar.Set(v.Dictionary.dictNumToAlpha![v.Local.sFirstChar])
+	v.Local.sSecondChar.Set(v.Dictionary.dictNumToAlpha![v.Local.sSecondChar])
+	f.Intrinsic.String.Build("{0}{1}",v.Local.sFirstChar,v.Local.sSecondChar,v.Local.sMappedCode)
+	
+	'Check Rule
+	f.Intrinsic.String.Build("Select Top 1 RuleClause,ApplyMapAutoScrap from GCG_6318_Rules where NumCode = '{0}'",v.Local.sNumCode,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+	
+	'There is no record, meaning there is no rule
+	f.Intrinsic.Control.If(v.Ambient.ExecuteAndReturnEOF)
+		v.Local.bRuleExist.Set(False)		
+		v.Local.sRuleClause.Set("")
+		v.Local.sApplyAutoScrap.Set("")
+		
+	'There is record	
+	f.Intrinsic.Control.Else
+	
+		f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+		v.Local.sRuleClause.Set(v.Local.sRet(0))
+		v.Local.sApplyAutoScrap.Set(v.Local.sRet(1))
+		
+		'There is rule
+		f.Intrinsic.Control.If(v.Local.sRuleClause.Trim,<>,"")
+			v.Local.bRuleExist.Set(True)
+			
+			'Build filter based on rule
+			f.Intrinsic.String.Replace(v.Local.sRuleClause,"Quantity","IsNull(QtyToScrap,0)",v.Local.sFilter)
+			f.Intrinsic.String.Replace(v.Local.sFilter,"Dollars","Amount",v.Local.sFilter)
+			f.Intrinsic.String.Build("RowNum = {0} and ({1})",v.Args.RowNum,v.Local.sFilter,v.Local.sFilter)
+			f.Data.Datatable.Select("WO",v.Local.sFilter,v.Local.sRet)
+			
+			'Check if rule qualified
+			f.Intrinsic.Control.If(v.Local.sRet,=,"***NORETURN***")
+				v.Local.bRuleQualified.Set(False)
+			F.Intrinsic.Control.Else
+				v.Local.bRuleQualified.Set(True)
+			f.Intrinsic.Control.EndIf	
+		
+		'There is record but no rule
+		f.Intrinsic.Control.Else
+			v.Local.bRuleExist.Set(False)
+			v.Local.sRuleClause.Set("")
+			'may be v.local.sApplyAutoScrap is True now, but it does not matter
+			
+		f.Intrinsic.Control.EndIf	
+		
+	f.Intrinsic.Control.EndIf
+
+	f.Intrinsic.Control.If(v.Local.bRuleExist,=,True,and,v.Local.bRuleQualified,=,True,v.Local.sApplyAutoScrap,=,"True")
+		v.Local.sActualCode.Set(v.Local.sMappedCode)
+	f.Intrinsic.Control.Else
+		v.Local.sActualCode.Set(v.Local.sNumCode)
+	f.Intrinsic.Control.EndIf
+	
+	f.Data.DataTable.SetValue("WO",v.Args.RowNum,"ActualCode",v.Local.sActualCode)
+
+f.Intrinsic.Control.Catch
+	f.Intrinsic.Control.CallSub("Catching","sub",v.Ambient.CurrentSubroutine,"errorno",v.Ambient.ErrorNumber,"errordesc",v.Ambient.ErrorDescription)
+f.Intrinsic.Control.EndTry
+Program.Sub.Map_To_ActualCode.End
+
+Program.Sub.Comments.Start
+${$5$}$20.1.8315.16327$}$1
+${$6$}$bnguyen$}$20221214141650417$}$tqzwddZCkmoVRWHEL6DZymEEseDhOdziOiHmLZys0W2Li28sHCajUpXkn0cBBqGO5xshjIlkLhA=
+Program.Sub.Comments.End
